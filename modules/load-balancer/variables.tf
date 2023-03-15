@@ -39,3 +39,15 @@ variable "autoscaling_group_id" {
 variable "security_group_id" {
   type = string  
 }
+
+variable "bucket_name" {
+  description = "Name of the S3 bucket"
+}
+
+variable "account_id" {
+  description = "ID of the AWS account"
+}
+
+variable "user_id" {
+  description = "ID of the IAM user"
+}

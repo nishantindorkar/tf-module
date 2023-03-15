@@ -28,6 +28,9 @@ module "loadbalancer" {
   subnets                = module.vpc.private_subnet_ids
   vpc_id                 = module.vpc.vpc_id
   autoscaling_group_name = module.autoscaling.autoscaling_group_name
+  bucket_name = module.loadbalancer.bucket_name
+  account_id = module.loadbalancer.account_id
+  user_id = module.loadbalancer.user_id
 }
 
 module "autoscaling" {
