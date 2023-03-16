@@ -45,13 +45,18 @@ resource "aws_autoscaling_group" "new-auto-group" {
   max_size             = 4
   desired_capacity     = 3
   health_check_type    = "EC2"
-  vpc_zone_identifier  = var.vpc_zone_identifier 
+  vpc_zone_identifier = var.vpc_public
+  #vpc_zone_identifier  = var.vpc_zone_identifier 
   #target_group_arns    = var.aws_lb_target_group_arns
   # lifecycle {
   #   create_before_destroy = true
   #   ignore_changes = [tag.Name]
   # }
-
+  tag {
+    key                 = "Name"
+    value               = "dev-server"
+    propagate_at_launch = true
+  }
   # tag {
   #   key                 = "Name"
   #   value               = "${var.appname}-${var.env}-server-${aws_autoscaling_group.new-auto-group.name}-${count.index + 1}"

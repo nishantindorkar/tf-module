@@ -23,6 +23,10 @@ variable "vpc_zone_identifier" {
   type = list(string)
 }
 
+variable "vpc_public" {
+  type = list(string)
+}
+
 # variable "aws_lb_target_group_arns" {
 #   type = list(string)  
 # }

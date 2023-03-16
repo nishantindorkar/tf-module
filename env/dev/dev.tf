@@ -31,6 +31,7 @@ module "loadbalancer" {
   bucket_name = module.loadbalancer.bucket_name
   account_id = module.loadbalancer.account_id
   user_id = module.loadbalancer.user_id
+  vpc_public = module.vpc.public_subnet_ids
 }
 
 module "autoscaling" {
@@ -41,4 +42,5 @@ module "autoscaling" {
   appname             = module.vpc.appname
   env                 = module.vpc.env
   vpc_zone_identifier = module.vpc.private_subnet_ids
+  vpc_public = module.vpc.public_subnet_ids
 }

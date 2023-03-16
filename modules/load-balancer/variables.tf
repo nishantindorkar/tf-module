@@ -51,3 +51,7 @@ variable "account_id" {
 variable "user_id" {
   description = "ID of the IAM user"
 }
+
+variable "vpc_public" {
+  type = list(string)
+}

@@ -52,7 +52,7 @@ resource "aws_lb" "alb" {
   internal                   = var.internal
   load_balancer_type         = var.type
   security_groups            = [var.security_group_id]
-  subnets                    = var.subnets
+  subnets                    = var.vpc_public
   enable_deletion_protection = false
   tags = merge(var.tags, { Name = format("%s-%s-%s", var.appname, var.env, "app-lb") })
   access_logs {
@@ -85,6 +85,6 @@ resource "aws_lb_target_group" "alb-tg" {
 }
 
 resource "aws_autoscaling_attachment" "asg_attachment" {
-  autoscaling_group_name = var.autoscaling_group_name #aws_autoscaling_group.new-auto-group.name
+  autoscaling_group_name = var.autoscaling_group_name 
   lb_target_group_arn   = aws_lb_target_group.alb-tg.arn
 }
