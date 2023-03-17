@@ -48,7 +48,7 @@ resource "aws_lb" "lb" {
   name                       = var.type == "application" ? local.alb_name : local.nlb_name
   internal                   = var.internal
   load_balancer_type         = var.type
-  subnets                    = var.vpc_public
+  subnets                    = var.vpc_public   #var.subnets,  #var.vpc_public
   enable_deletion_protection = false
   tags                       = merge(var.tags, { Name = format("%s-%s-%s", var.appname, var.env, var.type == "application" ? "app-lb" : "network-lb") })
   
