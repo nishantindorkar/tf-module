@@ -4,6 +4,7 @@ variable "internal" {
 
 variable "type" {
   type = string
+  default = "application"
 }
 
 variable "appname" {
@@ -39,19 +40,14 @@ variable "autoscaling_group_id" {
 variable "security_group_id" {
   type = string  
 }
-
-variable "bucket_name" {
-  description = "Name of the S3 bucket"
-}
-
-variable "account_id" {
-  description = "ID of the AWS account"
-}
-
-variable "user_id" {
-  description = "ID of the IAM user"
-}
-
 variable "vpc_public" {
   type = list(string)
 }
+
+# variable "ports" {
+#   type    = map(number)
+#   default = {
+#     http  = 80
+#     #https = 443
+#   }
+# }
