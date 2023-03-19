@@ -48,8 +48,9 @@ resource "aws_lb" "lb" {
   name                       = var.type == "application" ? local.alb_name : local.nlb_name
   internal                   = var.internal
   load_balancer_type         = var.type
-  subnets                    = var.vpc_public   #var.subnets,  #var.vpc_public
+  subnets                    = var.vpc_public   
   enable_deletion_protection = false
+  security_groups            = [var.security_group_id]
   tags                       = merge(var.tags, { Name = format("%s-%s-%s", var.appname, var.env, var.type == "application" ? "app-lb" : "network-lb") })
   
   dynamic "access_logs" {
@@ -75,22 +76,22 @@ resource "aws_lb_listener" "lb-listener" {
 
 resource "aws_lb_target_group" "lb-tg" {
   name_prefix      = var.type == "application" ? "alb-tg" : "nlb-tg"
-  port = var.type == "application" ? 80 : 80
+  port             = var.type == "application" ? 80 : 80
   protocol         = var.type == "application" ? "HTTP" : "TCP"
   vpc_id           = var.vpc_id
 
   health_check {
-    path = var.type == "application" ? "/" : null
+    path                = var.type == "application" ? "/" : null
     interval            = 30
     timeout             = 10
     healthy_threshold   = 3
     unhealthy_threshold = 3
     protocol            = var.type == "application" ? "HTTP" : "TCP"
+    port                = var.type == "application" ? 80 : 80
   }
 }
 
 resource "aws_autoscaling_attachment" "lb_asg_attachment" {
-  #for_each = var.ports
   autoscaling_group_name = var.autoscaling_group_name 
   lb_target_group_arn   = aws_lb_target_group.lb-tg.arn
   depends_on = [aws_lb_target_group.lb-tg]

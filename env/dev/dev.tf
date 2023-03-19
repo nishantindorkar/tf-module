@@ -18,7 +18,7 @@ module "vpc" {
 module "loadbalancer" {
   source   = "../../modules/load-balancer"
   internal = "false"
-  type     = "network" #"application" "network"
+  type     = "application" #"application" "network"
   tags = {
     Owner = "dev-one"
   }
